@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-ink-950 text-zinc-100 antialiased scroll-smooth;
+  }
+
+  body {
+    @apply font-sans min-h-screen;
+    background-image: radial-gradient(ellipse at top, rgba(69, 10, 22, 0.55), transparent 60%);
+    background-attachment: fixed;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    @apply bg-brand-600 text-white;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-ink-950;
+  }
+}
+
+@layer components {
+  .section-title {
+    @apply font-display text-4xl tracking-wide text-white sm:text-5xl;
+  }
+
+  .field-input {
+    @apply w-full rounded-lg border border-white/10 bg-ink-850 px-4 py-3 text-sm text-white placeholder:text-zinc-500 transition focus:border-brand-500 focus:outline-none focus:ring-2 focus:ring-brand-500/30 disabled:opacity-50;
+  }
+
+  .field-label {
+    @apply mb-1.5 block text-xs font-medium uppercase tracking-wider text-zinc-400;
+  }
+
+  .glass-panel {
+    @apply rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-xl;
+  }
+
+  .gold-border {
+    @apply border-gold-400/30;
+  }
+
+  .cinema-label {
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-400;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .skeleton {
+    @apply animate-shimmer bg-[linear-gradient(90deg,#1a1a1e_25%,#26262c_50%,#1a1a1e_75%)] bg-[length:200%_100%];
+  }
+}
