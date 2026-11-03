@@ -30,7 +30,7 @@ export default function ShowPicker({ shows, selectedShowId, onSelect }: ShowPick
 
   if (!activeDate) {
     return (
-      <p className="rounded-xl border border-dashed border-white/10 px-4 py-6 text-center text-sm text-zinc-400">
+      <p className="rounded-2xl border border-dashed border-white/10 px-4 py-10 text-center text-sm text-muted">
         No showtimes are scheduled for this movie yet.
       </p>
     );
@@ -41,11 +41,11 @@ export default function ShowPicker({ shows, selectedShowId, onSelect }: ShowPick
     .sort((a, b) => a.show_time.localeCompare(b.show_time));
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div>
-        <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-400">
-          <CalendarDays className="h-4 w-4" aria-hidden="true" />
-          Choose a date
+        <p className="mb-4 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">
+          <CalendarDays className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+          Select a date
         </p>
         <div className="no-scrollbar flex gap-3 overflow-x-auto pb-1" role="tablist" aria-label="Show dates">
           {dates.map((date) => {
@@ -58,14 +58,16 @@ export default function ShowPicker({ shows, selectedShowId, onSelect }: ShowPick
                 role="tab"
                 aria-selected={active}
                 onClick={() => setPickedDate(date)}
-                className={`flex min-w-[5.5rem] flex-col items-center rounded-xl border px-4 py-3 transition duration-300 ${
+                className={`group flex min-w-[6rem] flex-col items-start rounded-2xl border px-5 py-4 text-left transition duration-300 active:scale-[0.98] ${
                   active
-                    ? 'border-brand-500 bg-brand-600 text-white shadow-lg shadow-brand-900/40'
-                    : 'border-white/10 bg-white/5 text-zinc-300 hover:border-white/25 hover:text-white'
+                    ? 'border-cyan-400/60 bg-cyan-400/10 text-soft shadow-[0_0_30px_rgba(77,235,255,0.2)]'
+                    : 'border-white/10 bg-white/[0.03] text-muted hover:border-white/25 hover:text-soft'
                 }`}
               >
-                <span className="text-xs uppercase tracking-wider opacity-80">{chip.weekday}</span>
-                <span className="mt-1 text-base font-semibold">{chip.dayMonth}</span>
+                <span className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${active ? 'text-cyan-300' : ''}`}>
+                  {chip.weekday}
+                </span>
+                <span className="mt-1 font-display text-3xl uppercase tracking-wide">{chip.dayMonth}</span>
               </button>
             );
           })}
@@ -73,31 +75,36 @@ export default function ShowPicker({ shows, selectedShowId, onSelect }: ShowPick
       </div>
 
       <div>
-        <p className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-zinc-400">
-          <Clock className="h-4 w-4" aria-hidden="true" />
-          Choose a showtime
+        <p className="mb-4 flex items-center gap-2 text-[10px] font-semibold uppercase tracking-[0.25em] text-muted">
+          <Clock className="h-3.5 w-3.5 text-cyan-400" aria-hidden="true" />
+          Select a showtime
         </p>
-        <div className="flex flex-wrap gap-3">
+        <ul className="divide-y divide-white/10 overflow-hidden rounded-2xl border border-white/10 bg-ink-900/60">
           {timesForDate.map((show) => {
             const active = show.id === selectedShowId;
             return (
-              <button
-                key={show.id}
-                type="button"
-                onClick={() => onSelect(show)}
-                aria-pressed={active}
-                className={`rounded-lg border px-5 py-2.5 text-sm font-medium transition duration-300 active:scale-95 ${
-                  active
-                    ? 'border-brand-500 bg-brand-600/20 text-white ring-2 ring-brand-500/40'
-                    : 'border-white/10 bg-white/5 text-zinc-200 hover:border-brand-500/60 hover:text-white'
-                }`}
-              >
-                {formatShowTime(show.show_time)}
-                <span className="ml-2 text-xs text-zinc-400">{show.screen}</span>
-              </button>
+              <li key={show.id}>
+                <button
+                  type="button"
+                  onClick={() => onSelect(show)}
+                  aria-pressed={active}
+                  className={`group flex w-full items-center justify-between gap-4 px-5 py-4 text-left transition duration-300 ${
+                    active ? 'bg-gold-400 text-ink-950' : 'text-soft hover:bg-white/[0.04]'
+                  }`}
+                >
+                  <span className="font-display text-3xl uppercase tracking-wide">{formatShowTime(show.show_time)}</span>
+                  <span
+                    className={`text-[10px] font-semibold uppercase tracking-[0.2em] ${
+                      active ? 'text-ink-950/70' : 'text-muted group-hover:text-cyan-300'
+                    }`}
+                  >
+                    {show.screen}
+                  </span>
+                </button>
+              </li>
             );
           })}
-        </div>
+        </ul>
       </div>
     </div>
   );
