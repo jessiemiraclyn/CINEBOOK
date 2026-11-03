@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { AlertTriangle, ArrowLeft, Armchair, CalendarDays, Clock, Globe2, Star, Ticket } from 'lucide-react';
+import { AlertTriangle, ArrowLeft, Armchair, CalendarDays, Clock, Globe2, Play, Star, Ticket } from 'lucide-react';
 import Button from '@/components/ui/Button';
 import ErrorMessage from '@/components/ui/ErrorMessage';
 import PosterImage from '@/components/ui/PosterImage';
 import Spinner from '@/components/ui/Spinner';
 import PageContainer from '@/components/layout/PageContainer';
 import ShowPicker from '@/components/movie-details/ShowPicker';
+import TrailerModal from '@/components/movie-details/TrailerModal';
 import { useAsyncData } from '@/hooks/useAsyncData';
 import { navigate } from '@/hooks/useHashRoute';
 import { formatDuration, formatShowDate, formatShowTime } from '@/lib/format';
@@ -22,6 +23,7 @@ async function loadMovieDetails(movieId: string) {
 export default function MovieDetailsPage({ movieId }: { movieId: string }) {
   const details = useAsyncData(() => loadMovieDetails(movieId), [movieId]);
   const [selectedShow, setSelectedShow] = useState<Show | null>(null);
+  const [trailerOpen, setTrailerOpen] = useState(false);
 
   if (details.loading) {
     return (
@@ -93,6 +95,13 @@ export default function MovieDetailsPage({ movieId }: { movieId: string }) {
               </h1>
               <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted">{movie.description}</p>
 
+              <div className="mt-8">
+                <Button variant="secondary" size="lg" onClick={() => setTrailerOpen(true)}>
+                  <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                  Watch trailer
+                </Button>
+              </div>
+
               <dl className="mt-10 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-white/10 bg-white/10 sm:grid-cols-4">
                 {facts.map((fact) => {
                   const Icon = fact.icon;
@@ -145,6 +154,13 @@ export default function MovieDetailsPage({ movieId }: { movieId: string }) {
           </div>
         </section>
       </PageContainer>
+
+      <TrailerModal
+        open={trailerOpen}
+        title={movie.title}
+        youtubeId={movie.trailer_youtube_id}
+        onClose={() => setTrailerOpen(false)}
+      />
 
       {bookable && (
         <div className="fixed inset-x-0 bottom-0 z-30 border-t border-white/10 bg-ink-950/90 backdrop-blur-xl">

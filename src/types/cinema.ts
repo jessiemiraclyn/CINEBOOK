@@ -13,6 +13,7 @@ export interface Movie {
   description: string;
   poster_url: string;
   backdrop_url: string | null;
+  trailer_youtube_id: string | null;
   status: MovieStatus;
   is_trending: boolean;
   is_featured: boolean;
