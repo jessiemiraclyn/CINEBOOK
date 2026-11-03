@@ -58,11 +58,11 @@ export default function Navbar() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-500 ${
-        scrolled || menuOpen ? 'border-b border-gold-400/15 bg-ink-950/85 shadow-2xl shadow-black/50 backdrop-blur-xl' : 'bg-gradient-to-b from-black/80 to-transparent'
-      }`}
+      className="fixed inset-x-0 top-0 z-40 px-3 pt-3 sm:px-6"
     >
-      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
+      <nav className={`mx-auto flex h-16 max-w-7xl items-center justify-between gap-6 rounded-full border px-4 transition-all duration-500 sm:px-6 lg:px-8 ${
+          scrolled || menuOpen ? 'border-cyan-400/20 bg-ink-950/85 shadow-2xl shadow-black/50 backdrop-blur-xl' : 'border-white/10 bg-ink-950/40 backdrop-blur-md'
+        }`}>
         <Logo />
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -125,7 +125,7 @@ export default function Navbar() {
       </nav>
 
       {menuOpen && (
-        <div className="animate-fade-in border-t border-white/10 bg-ink-950/95 px-4 pb-6 pt-3 backdrop-blur-xl md:hidden">
+        <div className="animate-fade-in mx-auto mt-2 max-w-7xl rounded-3xl border border-white/10 bg-ink-950/95 px-4 pb-6 pt-3 backdrop-blur-xl md:hidden">
           <ul className="flex flex-col gap-1">
             {items.map((item) => {
               const active = item.matches(path);

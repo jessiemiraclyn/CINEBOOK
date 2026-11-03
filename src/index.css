@@ -10,8 +10,8 @@
   body {
     @apply font-sans min-h-screen;
     background-image:
-      radial-gradient(ellipse 70% 50% at 0% 0%, rgba(49, 85, 255, 0.22), transparent 70%),
-      radial-gradient(ellipse 60% 45% at 100% 20%, rgba(135, 60, 255, 0.16), transparent 70%);
+      radial-gradient(ellipse 70% 50% at 0% 0%, rgba(54, 224, 208, 0.16), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 100% 20%, rgba(130, 116, 255, 0.2), transparent 70%);
     background-attachment: fixed;
   }
 
@@ -59,8 +59,23 @@
     @apply border-gold-400/30;
   }
 
+  .metallic-text {
+    @apply bg-gradient-to-b from-soft via-gold-400 to-cyan-400 bg-clip-text text-transparent;
+  }
+
   .cinema-label {
     @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-cyan-400;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

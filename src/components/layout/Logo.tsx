@@ -9,7 +9,7 @@ export default function Logo({ compact = false }: { compact?: boolean }) {
       {!compact && (
         <span className="flex flex-col leading-none">
           <span className="font-display text-2xl tracking-wider text-soft">
-            CINE<span className="text-gold-400">BOOK</span>
+            CINE<span className="bg-gradient-to-r from-cyan-300 via-soft to-ultra-400 bg-clip-text text-transparent">BOOK</span>
           </span>
           <span className="mt-1 text-[9px] font-semibold uppercase tracking-[0.35em] text-muted">
             Midnight Cinema Club

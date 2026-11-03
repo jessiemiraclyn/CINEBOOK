@@ -1,4 +1,6 @@
+import { useCallback, useState } from 'react';
 import { AuthProvider } from '@/context/AuthContext';
+import IntroSequence from '@/components/intro/IntroSequence';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import RequireAuth from '@/components/auth/RequireAuth';
@@ -57,8 +59,14 @@ function Router() {
 }
 
 export default function App() {
+  const [introVisible, setIntroVisible] = useState(
+    () => !window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  );
+  const dismissIntro = useCallback(() => setIntroVisible(false), []);
+
   return (
     <AuthProvider>
+      {introVisible && <IntroSequence onDone={dismissIntro} />}
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <main className="flex-1">
