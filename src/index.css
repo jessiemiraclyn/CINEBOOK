@@ -9,7 +9,9 @@
 
   body {
     @apply font-sans min-h-screen;
-    background-image: radial-gradient(ellipse at top, rgba(69, 10, 22, 0.55), transparent 60%);
+    background-image:
+      radial-gradient(ellipse 70% 50% at 0% 0%, rgba(49, 85, 255, 0.22), transparent 70%),
+      radial-gradient(ellipse 60% 45% at 100% 20%, rgba(135, 60, 255, 0.16), transparent 70%);
     background-attachment: fixed;
   }
 
@@ -19,22 +21,26 @@
     inset: 0;
     z-index: 50;
     pointer-events: none;
-    opacity: 0.05;
+    opacity: 0.07;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   ::selection {
-    @apply bg-brand-600 text-white;
+    @apply bg-gold-400 text-ink-950;
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-ink-950;
+    @apply outline-none ring-2 ring-cyan-400 ring-offset-2 ring-offset-ink-950;
   }
 }
 
 @layer components {
   .section-title {
-    @apply font-display text-4xl tracking-wide text-white sm:text-5xl;
+    @apply font-display text-4xl uppercase tracking-wide text-soft sm:text-6xl;
+  }
+
+  .neon-text {
+    text-shadow: 0 0 18px rgba(77, 235, 255, 0.55), 0 0 42px rgba(49, 85, 255, 0.35);
   }
 
   .field-input {
@@ -46,7 +52,7 @@
   }
 
   .glass-panel {
-    @apply rounded-2xl border border-white/10 bg-ink-900/80 backdrop-blur-xl;
+    @apply rounded-2xl border border-white/10 bg-ink-900/70 backdrop-blur-xl;
   }
 
   .gold-border {
@@ -54,7 +60,7 @@
   }
 
   .cinema-label {
-    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-gold-400;
+    @apply inline-flex items-center gap-2 text-[11px] font-semibold uppercase tracking-[0.3em] text-cyan-400;
   }
 }
 
@@ -69,6 +75,6 @@
   }
 
   .skeleton {
-    @apply animate-shimmer bg-[linear-gradient(90deg,#1a1a1e_25%,#26262c_50%,#1a1a1e_75%)] bg-[length:200%_100%];
+    @apply animate-shimmer bg-[linear-gradient(90deg,#14162a_25%,#1f2240_50%,#14162a_75%)] bg-[length:200%_100%];
   }
 }

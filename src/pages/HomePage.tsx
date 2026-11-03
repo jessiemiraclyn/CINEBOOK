@@ -79,17 +79,18 @@ export default function HomePage() {
 
   const isSearching = query.trim().length > 0;
   const trimmedQuery = query.trim();
+  const featuredPosition = movies.indexOf(featured) + 1;
 
   return (
     <>
-      <HeroBanner movie={featured} />
+      <HeroBanner movie={featured} position={featuredPosition} total={movies.length} />
 
-      <div className="mx-auto max-w-7xl space-y-20 px-4 sm:px-6 lg:px-8">
-        <section aria-label="Find movies" className="-mt-4 flex flex-col gap-6">
+      <div className="mx-auto max-w-7xl space-y-24 px-4 pb-24 sm:px-6 lg:px-8">
+        <section aria-label="Find movies" className="flex flex-col gap-6">
           <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
-              <p className="cinema-label">Find your movie</p>
-              <p className="mt-2 text-sm text-zinc-400">Search by title, genre or language</p>
+              <p className="cinema-label">Find your film</p>
+              <p className="mt-2 text-sm text-muted">Search by title, genre or language</p>
             </div>
             <SearchInput value={query} onChange={setQuery} />
           </div>
@@ -99,6 +100,7 @@ export default function HomePage() {
         {isSearching ? (
           <MovieSection
             id="search-results"
+            eyebrow="Search"
             title="Search results"
             subtitle={`Matches for "${trimmedQuery}"`}
             movies={visibleMovies}
@@ -107,29 +109,34 @@ export default function HomePage() {
         ) : (
           <>
             <MovieSection
-              id="trending"
-              title="Trending This Week"
+              id="spotlight"
+              eyebrow="Trending this week"
+              title="The Spotlight"
               subtitle="The films audiences are talking about right now"
               movies={visibleMovies.filter((movie) => movie.is_trending)}
               emptyMessage="No trending movies match this genre."
+              spotlight
             />
             <MovieSection
-              id="now-showing"
-              title="Now Showing"
+              id="now-on-screen"
+              eyebrow="Showing today"
+              title="Now On Screen"
               subtitle="Book your seats for screenings today and beyond"
               movies={visibleMovies.filter((movie) => movie.status === 'now_showing')}
               emptyMessage="No movies are showing right now for this genre."
             />
             <MovieSection
-              id="favourites"
-              title="Audience Favourites"
-              subtitle="The highest rated films on CineBook"
+              id="cult-favourites"
+              eyebrow="Audience favourites"
+              title="Cult Favourites"
+              subtitle="The highest rated films on CINEBOOK"
               movies={favourites}
               emptyMessage="No rated films match this genre yet."
             />
             <MovieSection
-              id="upcoming"
-              title="Coming Soon"
+              id="next-premiere"
+              eyebrow="Coming soon"
+              title="The Next Premiere"
               subtitle="Get ready for what is coming next"
               movies={visibleMovies.filter((movie) => movie.status === 'upcoming')}
               emptyMessage="No upcoming releases match this genre."
@@ -140,3 +147,4 @@ export default function HomePage() {
     </>
   );
 }
+
